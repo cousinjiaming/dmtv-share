@@ -20,6 +20,7 @@
 <meta name="twitter:description" content="好剧天天看，订阅找佳明。">
 
 <style>
+
 * {
   box-sizing: border-box;
 }
@@ -59,7 +60,7 @@ p {
   font-size: 14px;
   font-weight: 500;
 }
-  
+
 .poster {
   width: 100%;
   border-radius: 14px;
@@ -159,6 +160,83 @@ p {
   font-size: 13px;
 }
 
+/* WhatsApp 客服悬浮按钮 */
+
+.chat-button {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: #1fa855;
+  color: white;
+  font-size: 28px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.35);
+  z-index: 9999;
+}
+
+.chat-box {
+  display: none;
+  position: fixed;
+  right: 20px;
+  bottom: 95px;
+  width: calc(100% - 40px);
+  max-width: 340px;
+  background: #10243e;
+  border: 1px solid #36516f;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.4);
+  z-index: 9999;
+  text-align: left;
+}
+
+.chat-header {
+  background: #183653;
+  padding: 16px;
+  color: #f2c879;
+  font-weight: bold;
+}
+
+.chat-content {
+  padding: 16px;
+}
+
+.chat-content p {
+  font-size: 14px;
+  margin-top: 0;
+}
+
+.chat-option {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin: 9px 0;
+  background: #203753;
+  color: white;
+  border: 1px solid #36516f;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 14px;
+}
+
+.chat-option:hover {
+  background: #294765;
+}
+
+.chat-close {
+  float: right;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
 </style>
 </head>
 
@@ -197,7 +275,6 @@ href="https://youtu.be/FBbQtJwVDHg">
 href="https://youtu.be/ac_eHZirzJo">
 如何注册账号
 </a>
-
 
 <!-- 邀请朋友分享区域 -->
 
@@ -241,14 +318,56 @@ onclick="copyInvitation()">
 
 </div>
 
-
-<!-- 普通网页分享区域 -->
 <div class="footer">
 佳明表哥｜Cousin JiaMing
 </div>
 
 </div>
 
+<!-- WhatsApp 客服对话窗口 -->
+
+<div class="chat-box" id="chatBox">
+
+  <div class="chat-header">
+    佳明表哥客服
+    <button class="chat-close" onclick="toggleChat()">×</button>
+  </div>
+
+  <div class="chat-content">
+
+    <p>
+      您好！欢迎来到佳明表哥 😊<br>
+      请问您想了解什么呢？
+    </p>
+
+    <button class="chat-option"
+    onclick="contactWhatsApp('我想了解大米影视免费体验及注册方式。')">
+      🎬 免费体验与注册
+    </button>
+
+    <button class="chat-option"
+    onclick="contactWhatsApp('我想询问电视或设备安装问题。')">
+      📺 设备安装问题
+    </button>
+
+    <button class="chat-option"
+    onclick="contactWhatsApp('我想了解大米影视的订阅价格。')">
+      💳 订阅价格
+    </button>
+
+    <button class="chat-option"
+    onclick="contactWhatsApp('您好，我有其他问题想咨询。')">
+      💬 其他问题
+    </button>
+
+  </div>
+</div>
+
+<button class="chat-button"
+onclick="toggleChat()"
+aria-label="打开 WhatsApp 客服">
+💬
+</button>
 
 <script>
 
@@ -277,7 +396,6 @@ ${websiteURL}
 好东西，当然要和朋友分享！😊`;
 }
 
-
 function shareInvitation() {
 
   const message = getInvitationText();
@@ -290,7 +408,6 @@ function shareInvitation() {
   window.open(whatsappURL, "_blank");
 
 }
-
 
 async function copyInvitation() {
 
@@ -312,16 +429,24 @@ async function copyInvitation() {
 
 }
 
+/* WhatsApp 客服功能 */
 
-function shareWebsite() {
+function toggleChat() {
 
-  const message =
-    "🎬 好剧天天看，订阅找佳明！\n\n" +
-    "想了解大米影视免费分享版？\n" +
-    websiteURL;
+  const chatBox = document.getElementById("chatBox");
+
+  chatBox.style.display =
+    chatBox.style.display === "block" ? "none" : "block";
+
+}
+
+function contactWhatsApp(message) {
+
+  const phoneNumber = "60126155498";
 
   const whatsappURL =
-    "https://wa.me/?text=" + encodeURIComponent(message);
+    "https://wa.me/" + phoneNumber +
+    "?text=" + encodeURIComponent(message);
 
   window.open(whatsappURL, "_blank");
 
