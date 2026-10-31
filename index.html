@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -21,7 +21,9 @@
 <meta name="twitter:description" content="好剧天天看，订阅找佳明。">
 
 <style>
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -69,6 +71,9 @@ p {
   text-decoration: none;
   font-weight: bold;
   border-radius: 9px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 .secondary {
@@ -76,15 +81,75 @@ p {
   color: white;
 }
 
+.share-section {
+  margin-top: 38px;
+  padding: 25px 18px;
+  background: #10243e;
+  border: 1px solid #294362;
+  border-radius: 15px;
+}
+
+.share-section h2 {
+  font-size: 23px;
+  color: #f2c879;
+  margin-top: 0;
+}
+
+.share-section p {
+  font-size: 15px;
+}
+
+.reward {
+  color: #f2c879;
+  font-weight: bold;
+  font-size: 17px;
+  margin: 15px 0;
+}
+
+.invite-input {
+  width: 100%;
+  max-width: 360px;
+  padding: 15px;
+  margin: 12px auto;
+  border-radius: 8px;
+  border: 1px solid #506783;
+  background: #081426;
+  color: white;
+  font-size: 16px;
+  text-align: center;
+}
+
+.invite-input::placeholder {
+  color: #8493a8;
+}
+
+.share-button {
+  background: #1fa855;
+  color: white;
+}
+
+.copy-button {
+  background: #294765;
+  color: white;
+}
+
+.notice {
+  color: #93a4b9;
+  font-size: 13px;
+  margin-top: 12px;
+}
+
 .footer {
   margin-top: 35px;
   color: #8493a8;
   font-size: 13px;
 }
+
 </style>
 </head>
 
 <body>
+
 <div class="container">
 
 <h1>大米影视免费分享版</h1>
@@ -119,10 +184,154 @@ href="https://youtu.be/ac_eHZirzJo">
 了解大米影视
 </a>
 
+
+<!-- 邀请朋友分享区域 -->
+
+<div class="share-section">
+
+<h2>🎁 邀请朋友，一起免费体验！</h2>
+
+<p>
+好东西，当然要分享！<br>
+邀请朋友注册时输入你的邀请码，
+</p>
+
+<div class="reward">
+邀请人与新用户，双方各获得额外3天体验！
+</div>
+
+<input
+type="text"
+id="inviteCode"
+class="invite-input"
+placeholder="请输入你的个人邀请码"
+maxlength="50"
+autocomplete="off">
+
+<button
+class="button share-button"
+onclick="shareInvitation()">
+WhatsApp 分享我的邀请码
+</button>
+
+<button
+class="button copy-button"
+onclick="copyInvitation()">
+复制邀请文字
+</button>
+
+<p class="notice">
+请朋友注册时，记得输入你的邀请码，才能获得双方奖励。
+</p>
+
+</div>
+
+
+<!-- 普通网页分享区域 -->
+
+<div style="margin-top:30px;">
+
+<p style="color:#f2c879;font-weight:bold;">
+觉得不错？分享给身边的朋友！
+</p>
+
+<button
+class="button secondary"
+onclick="shareWebsite()">
+分享免费体验网页
+</button>
+
+</div>
+
+
 <div class="footer">
 佳明表哥｜Cousin JiaMing
 </div>
 
 </div>
+
+
+<script>
+
+const websiteURL = "https://cousinjiaming.github.io/dmtv-share/";
+
+function getInvitationText() {
+
+  const code = document.getElementById("inviteCode").value.trim();
+
+  if (!code) {
+    alert("请先输入你的个人邀请码。");
+    return null;
+  }
+
+  return `🎬 邀请你免费体验大米影视！
+
+通过 Google TV、安卓手机及平板等设备，了解更多精彩内容。
+
+我的邀请码：${code}
+
+注册时输入我的邀请码，我们双方都可以获得额外3天免费体验！
+
+免费体验页面：
+${websiteURL}
+
+好东西，当然要分享！😊
+
+佳明表哥｜Cousin JiaMing`;
+}
+
+
+function shareInvitation() {
+
+  const message = getInvitationText();
+
+  if (!message) return;
+
+  const whatsappURL =
+    "https://wa.me/?text=" + encodeURIComponent(message);
+
+  window.open(whatsappURL, "_blank");
+
+}
+
+
+async function copyInvitation() {
+
+  const message = getInvitationText();
+
+  if (!message) return;
+
+  try {
+
+    await navigator.clipboard.writeText(message);
+
+    alert("邀请文字已经复制，可以分享给朋友了！");
+
+  } catch (error) {
+
+    alert("复制失败，请使用浏览器允许的复制功能。");
+
+  }
+
+}
+
+
+function shareWebsite() {
+
+  const message =
+    "🎬 好剧天天看，订阅找佳明！\n\n" +
+    "想了解大米影视免费体验版？\n" +
+    websiteURL;
+
+  const whatsappURL =
+    "https://wa.me/?text=" + encodeURIComponent(message);
+
+  window.open(whatsappURL, "_blank");
+
+}
+
+</script>
+
 </body>
 </html>
+```
